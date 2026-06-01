@@ -7,7 +7,10 @@
 }
 
 
-html, body {padding: 0px;
+html {padding: 0px;
+    margin: 0px;}
+
+body {padding: 0px;
         margin: 0px;
         overflow-x: hidden;
         background-color: #FAF9F6 
@@ -64,10 +67,14 @@ html, body {padding: 0px;
         width: 60%}
 
 header {background-color: #582C4D;
+        position: sticky;
+        top: 0;
+        z-index: 1000
         }
 
 header h1 {font-size: 40px;
-            color: #BFB5AF}
+            color: #BFB5AF;
+            }
 
 .header {max-width: 1280px;
     width: 100%;
@@ -121,6 +128,8 @@ main {flex: 1}
             flex-direction: column;}
 #services h3 {color: #ECE2D0}
 
+
+
 .top {max-width: 1280px; 
     padding-top: 100px;    /* Restricts the size on large screens */
     width: 100%;            /* Allows it to shrink on smaller screens */
@@ -150,6 +159,16 @@ main {flex: 1}
 
 .card:hover {box-shadow: 0 10px 20px 2px #582C4D}
 
+.pricing_card {padding: 30px;
+    width: 33%;
+    border: 5px, solid, #A26769;
+    border-radius: 15px;
+    justify-content: center; 
+    background-color: #A26769;
+    }
+.pricing_card p {color: white}
+
+.pricing_card:hover {box-shadow: 0 10px 20px 2px #582C4D}
 
 #cta {background-color: #ECE2D0}
 
@@ -190,7 +209,236 @@ button {border-radius: 15px;
 
 button:hover {color: white;
                 background-color: #A26769;
-                border-color: none}      
+                border-color: none}   
+                
+/* ==========================================
+   PHOTO GALLERY CORE GRID LAYOUT
+   ========================================== */
+
+#gallery h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.photo-grid {
+  display: grid;
+  /* Automatically places 3 even boxes side-by-side on large screens */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 24px; 
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px; /* Matches your card container styling */
+  background-color: #ECE2D0; /* Fallback brand bone color block */
+  aspect-ratio: 1 / 1; /* Locks layout into perfect square windows */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Ensure the links span across the entire tile square wrapper */
+.gallery-item a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Centers and slices photos into crisp uniform boxes without skew */
+  display: block;
+}
+
+/* Interaction feedback styling using your dark berry signature shade */
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px 2px #582C4D; 
+  cursor: pointer;
+}
+
+/* ==========================================
+   LIGHTBOX PURE CSS POPUP ENGINE
+   ========================================== */
+
+/* Full viewport blackout drop */
+.lightbox-modal {
+  display: none; /* Safely stows background engine components out of sight */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(88, 44, 77, 0.92); /* 92% opaque blackberry cream overlay color */
+  z-index: 2500; /* Forcibly sits safely on top of your standard sticky header (z-index 1000) */
+  justify-content: center;
+  align-items: center;
+}
+
+/* Activated State via Target Link Triggers */
+.lightbox-modal:target {
+  display: flex; /* Fires box into focus view dynamically */
+}
+
+/* Structural mask layers: allows outer background space clicks to dismiss view */
+.close-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: default;
+}
+
+/* Main Display Canvas bounding the full-size imagery asset */
+.modal-content {
+  position: relative;
+  max-width: 85%;
+  max-height: 85%;
+  display: flex;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 85vh; /* Protects layout parameters against screen overflow clipping */
+  object-fit: contain; /* Locks layout ratio proportions to preserve photographic fidelity */
+  border-radius: 10px;
+  border: 5px solid #ECE2D0; /* Ties content frame visually back to base page structures */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Close UI button configuration element */
+.close-button {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  color: #ECE2D0;
+  background-color: #A26769; /* Balanced with your smoky rose visual indicator styling */
+  font-size: 30px;
+  line-height: 36px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #FAF9F6;
+  color: #582C4D;
+}
+
+/* ==========================================
+   MEDIA QUERIES FOR SCREEN FLEXIBILITY
+   ========================================== */
+
+@media (max-width: 900px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr); /* Step down to a clean duplex column matrix on tablets */
+  }
+}
+
+@media (max-width: 600px) {
+  .photo-grid {
+    grid-template-columns: 1fr; /* Compresses layout to flat stacked vertical ribbons on small mobiles */
+    gap: 16px;
+  }
+  
+  .modal-content {
+    max-width: 95%; /* Maximizes layout viewing real estate inside limited pocket screens */
+  }
+  
+  .close-button {
+    top: 10px; /* Safely floats target buttons inward on mobile screens to keep them on-canvas */
+    right: 10px;
+  }
+}
+
+/* ==========================================
+   CONTACT FORM STYLING SYSTEM
+   ========================================== */
+
+.contact-box {
+  max-width: 600px; /* Keeps the form narrow and readable on large screens */
+  margin: 0 auto;   /* Centers the form box on the page */
+  background-color: #FAF9F6; /* Matches your body background */
+}
+
+#contact h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  color: #582C4D; /* Uses your signature deep purple */
+}
+
+.contact-subtitle {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Space between input fields */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between the label text and input field */
+}
+
+.form-group label {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 14px;
+  font-weight: bold;
+  color: #582C4D;
+  letter-spacing: 1px;
+}
+
+/* Base styles for text inputs and textarea boxes */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #BFB5AF; /* Silver borders */
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333333;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle focus state when a user clicks into a field */
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #A26769; /* Changes to smoky rose on click */
+  box-shadow: 0 0 8px rgba(162, 103, 105, 0.2);
+}
+
+/* Overriding and tuning your existing button component styles */
+button.submit-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 16px;
+  background-color: #582C4D; /* Starts as deep purple */
+  color: #ECE2D0;            /* Soft bone text color */
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+button.submit-btn:hover {
+  background-color: #A26769; /* Switches to smoky rose on hover */
+  color: #ffffff;
+}
+
 
 footer {
     background-color:  #582C4D;
