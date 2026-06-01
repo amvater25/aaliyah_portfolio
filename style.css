@@ -455,6 +455,71 @@ footer {
 
 footer p {margin: 0; }
 
+/* ==========================================
+   GLOBAL RESPONSIVE BREAKPOINTS
+   ========================================== */
+
+/* --- TABLET LAYOUT ADJUSTMENTS (Under 900px) --- */
+@media (max-width: 900px) {
+  /* Converts side-by-side splits into a clean vertical stack */
+  .side_by_side {
+    flex-direction: column;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  /* Drops card columns down to a two-column matrix grid layout */
+  .bottom {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .card {
+    width: 48%; /* Fits two columns cleanly with spacing gap rules */
+    margin-bottom: 20px;
+  }
+
+  h1 { font-size: 52px; } /* Scales headers down slightly for mid-size displays */
+}
+
+/* --- MOBILE PHONE LAYOUT ADJUSTMENTS (Under 650px) --- */
+@media (max-width: 650px) {
+  /* Aligns navigation vertically when header boundaries narrow */
+  .header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  .title {
+    justify-content: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+  }
+
+  /* Forces text constraints on the hero background block to utilization full screen width */
+  #hero h1 { width: 100%; }
+  #hero p { width: 100%; }
+
+  /* Compresses the three card column modules into one full width ribbon column layout */
+  .card {
+    width: 100%;
+  }
+
+  /* Reduces structural page gaps so padding doesn't push sections off narrow viewports */
+  .container, .top, .bottom {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  h1 { font-size: 40px; } /* Ensures giant text doesn't force horizontal scroll breaks */
+}
+
+
 /* blackberry cream #582C4D
 # smoky rose #A26769
 # almond silk #D5B9B2
