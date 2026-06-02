@@ -491,6 +491,7 @@ footer p {margin: 0;
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    padding: 10px
   }
 
   .title {
@@ -501,6 +502,27 @@ footer p {margin: 0;
     flex-direction: column;
     gap: 10px;
     padding: 0;
+    display: block; /* Visible on mobile */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .nav-toggle {
+    display: block; /* Show the button on small screens */
+  }
+
+  nav a {
+    display: none; /* Hide the links by default under 650px */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 1rem 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
 
   /* Forces text constraints on the hero background block to utilization full screen width */
